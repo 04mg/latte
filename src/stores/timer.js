@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { useTagsStore } from '@/stores/tags.js';
+import BeepAudio from '@/assets/beep.wav';
 
 export const useTimerStore = defineStore('timer', {
     state: () => {
@@ -29,7 +30,7 @@ export const useTimerStore = defineStore('timer', {
                 } else {
                     self.seconds -= 1;
                 }
-            }, 1000);
+            }, 1);
         },
         stop() {
             clearInterval(this.interval);
@@ -38,6 +39,12 @@ export const useTimerStore = defineStore('timer', {
                 if (this.seconds <= 30) {
                     this.tagsStore.tags[this.tagsStore.tagIndex].minutes += this.selectedMinutes - this.minutes;
                 }
+            }
+            
+            // Play audio if timer finished
+            if (this.minutes == 0 && this.seconds == 0) {
+                const audio = new Audio(BeepAudio);
+                audio.play();
             }
 
             this.minutes = this.selectedMinutes;
