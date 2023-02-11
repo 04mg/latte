@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+
+* {
+    -webkit-user-select: none;       
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+body {
+    font-family: 'Manrope', Verdana, sans-serif;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    padding: 10px;
+    z-index: 7;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    min-height: 100vh;
+}
+
+@media (max-width: 768px), (max-height: 900px) {
+    main {
+        padding-bottom: 20px;
+        padding-top: 62px;
+    }
+}
+
+svg {
+    width: 200px;
+    height: auto;
+}
+
+.nav-icon {
+    display: inline-block;
+    height: 42px;
+}
+
+.container>.box {
+    margin: 0 auto;
+}
+
+.box {
+    min-width: 300px;
+}
+
+#thumbnail, .vacp-color-space {
+    width: 300px;
+    border-radius: 5px;
+}
+
+.vacp-icon {
+    width: 16px;
+}
+
+.thumbnail-container {
+    border-radius: 5px;
+    max-height: 169px;
+    overflow: hidden;
+}

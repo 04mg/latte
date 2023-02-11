@@ -1,0 +1,30 @@
+{
+  "name": "latte",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.12.0",
+    "bulma": "^0.9.4",
+    "pinia": "^2.0.28",
+    "vue": "^3.2.45",
+    "vue-accessible-color-picker": "^4.1.2",
+    "vue-circle-slider": "^1.0.2",
+    "vue-router": "^4.1.6",
+    "vue-toast-notification": "3.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "prettier": "^2.7.1",
+    "vite": "^4.0.0"
+  }
+}
