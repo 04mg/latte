@@ -1,5 +1,5 @@
 # Latte
-Highly customizable productivity focus timer built using Vue
+Highly customizable productivity focus timer built using Vue. [Try it!](https://lattefocus.pages.dev)
 
 ## Screenshots
 ![Timer](images/home.png)
