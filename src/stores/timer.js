@@ -30,7 +30,7 @@ export const useTimerStore = defineStore('timer', {
                 } else {
                     self.seconds -= 1;
                 }
-            }, 1);
+            }, 1000);
         },
         stop() {
             clearInterval(this.interval);
