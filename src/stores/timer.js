@@ -5,30 +5,57 @@ import BeepAudio from '@/assets/beep.wav';
 export const useTimerStore = defineStore('timer', {
     state: () => {
         return {
+            interval: null,
             tagsStore: useTagsStore(),
-            selectedMinutes: 0,
-            active: false,
-            paused: false,
+            startMinutes: 0,
             minutes: 0,
             seconds: 0,
-            interval: null
+            active: false,
+            paused: true
         };
     },
     actions: {
         begin() {
-            this.active = true;
-            this.selectedMinutes = this.minutes;
+            this.startMinutes = this.minutes;
             this.resume();
         },
-        stop() {
-            clearInterval(this.interval);
+        resume() {
+            // Set status variables
+            this.active = true;
+            this.paused = false;
 
-            if (this.tagsStore.tags.length) {
-                if (this.seconds <= 30) {
-                    this.tagsStore.tags[this.tagsStore.tagIndex].minutes +=
-                        this.selectedMinutes - this.minutes;
+            // Calculate the finish date from now
+            const finishDate = new Date(
+                new Date().getTime() +
+                    this.minutes * 60 * 1000 +
+                    this.seconds * 1000
+            ).getTime();
+
+            // Set interval that will check and compare dates every 100ms
+            // As Dates are just being compared, the timer will still work even
+            // when the page loses focus
+            const self = this;
+            this.interval = setInterval(() => {
+                const remaining = finishDate - new Date().getTime();
+                if (remaining > 0) {
+                    self.minutes = Math.floor(remaining / (60 * 1000));
+                    self.seconds = Math.floor((remaining / 1000) % 60);
+                } else {
+                    self.stop();
                 }
-            }
+            }, 100);
+        },
+        pause() {
+            this.paused = true;
+            clearInterval(this.interval);
+        },
+        stop() {
+            // Set status variables
+            this.active = false;
+            this.paused = false;
+
+            // Clear interval
+            clearInterval(this.interval);
 
             // Play audio if timer finished
             if (this.minutes == 0 && this.seconds == 0) {
@@ -36,29 +63,16 @@ export const useTimerStore = defineStore('timer', {
                 audio.play();
             }
 
-            this.minutes = this.selectedMinutes;
-            this.seconds = 0;
-            this.active = false;
-        },
-        pause() {
-            clearInterval(this.interval);
-            this.paused = true;
-        },
-        resume() {
-            this.paused = false;
-            const self = this;
-            this.interval = setInterval(() => {
-                if (self.seconds == 0) {
-                    if (self.minutes == 0) {
-                        self.stop();
-                    } else {
-                        self.minutes -= 1;
-                        self.seconds = 59;
-                    }
-                } else {
-                    self.seconds -= 1;
+            // Add time to selected tag
+            if (this.tagsStore.tags.length) {
+                if (this.seconds <= 30) {
+                    this.tagsStore.tags[this.tagsStore.tagIndex].minutes +=
+                        this.startMinutes - this.minutes;
                 }
-            }, 1000);
+            }
+
+            // Reset seconds
+            this.seconds = 0;
         }
     }
 });
