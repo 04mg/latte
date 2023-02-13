@@ -58,7 +58,7 @@ export const useTimerStore = defineStore('timer', {
             clearInterval(this.interval);
 
             // Play audio if timer finished
-            if (this.minutes == 0 && this.seconds == 0) {
+            if (this.minutes == 0 && this.seconds < 1) {
                 const audio = new Audio(BeepAudio);
                 audio.play();
             }
