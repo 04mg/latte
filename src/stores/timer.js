@@ -38,8 +38,9 @@ export const useTimerStore = defineStore('timer', {
             this.interval = setInterval(() => {
                 const remaining = finishDate - new Date().getTime();
                 if (remaining > 0) {
-                    self.minutes = Math.floor(remaining / (60 * 1000));
-                    self.seconds = Math.floor((remaining / 1000) % 60);
+                    const date = new Date(remaining);
+                    self.minutes = date.getMinutes();
+                    self.seconds = date.getSeconds();
                 } else {
                     self.stop();
                 }
