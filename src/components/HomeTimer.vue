@@ -26,11 +26,12 @@ export default {
             this.timerStore.stop();
         },
         toggleTimer() {
-            this.timerStore.paused ? this.timerStore.resume() : this.timerStore.pause();
+            this.timerStore.paused
+                ? this.timerStore.resume()
+                : this.timerStore.pause();
         },
         setMinutes(value) {
-            if (!this.timerStore.active)
-                this.timerStore.minutes = value;
+            if (!this.timerStore.active) this.timerStore.minutes = value;
         },
         decreaseMinutes() {
             if (!this.timerStore.active && this.timerStore.minutes > 0)
@@ -49,10 +50,14 @@ export default {
             return this.timerStore.paused ? 'resume' : 'pause';
         },
         minutes() {
-            return this.timerStore.minutes < 10 ? '0' + this.timerStore.minutes : this.timerStore.minutes;
+            return this.timerStore.minutes < 10
+                ? '0' + this.timerStore.minutes
+                : this.timerStore.minutes;
         },
         seconds() {
-            return this.timerStore.seconds < 10 ? '0' + this.timerStore.seconds : this.timerStore.seconds;
+            return this.timerStore.seconds < 10
+                ? '0' + this.timerStore.seconds
+                : this.timerStore.seconds;
         },
         ...mapStores(useSettingsStore, useTimerStore)
     }
@@ -84,7 +89,12 @@ export default {
         <span class="time">{{ minutes }}:{{ seconds }}</span>
         <span class="increase" @click="increaseMinutes">+</span>
     </span>
-    <span class="helper has-text-color" @click="beginTimer" v-if="!timerStore.active">begin</span>
+    <span
+        class="helper has-text-color"
+        @click="beginTimer"
+        v-if="!timerStore.active"
+        >begin</span
+    >
     <span class="helper has-text-color" v-else>
         <span @click="toggleTimer">{{ pauseOrResume }}</span> &bull;
         <span @click="stopTimer">stop</span>

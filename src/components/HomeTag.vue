@@ -7,7 +7,7 @@ export default {
     methods: {
         changeTag() {
             if (this.timerStore.active) {
-                this.$toast.info('Stop the timer first')
+                this.$toast.info('Stop the timer first');
                 return;
             }
 
