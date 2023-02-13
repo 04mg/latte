@@ -25,6 +25,9 @@ export default {
         stopTimer() {
             this.timerStore.stop();
         },
+        toggleTimer() {
+            this.timerStore.paused ? this.timerStore.resume() : this.timerStore.pause();
+        },
         setMinutes(value) {
             if (!this.timerStore.active)
                 this.timerStore.minutes = value;
@@ -42,6 +45,9 @@ export default {
         CircleSlider
     },
     computed: {
+        pauseOrResume() {
+            return this.timerStore.paused ? 'resume' : 'pause';
+        },
         minutes() {
             return this.timerStore.minutes < 10 ? '0' + this.timerStore.minutes : this.timerStore.minutes;
         },
@@ -79,7 +85,10 @@ export default {
         <span class="increase" @click="increaseMinutes">+</span>
     </span>
     <span class="helper has-text-color" @click="beginTimer" v-if="!timerStore.active">begin</span>
-    <span class="helper has-text-color" @click="stopTimer" v-else>stop</span>
+    <span class="helper has-text-color" v-else>
+        <span @click="toggleTimer">{{ pauseOrResume }}</span> &bull;
+        <span @click="stopTimer">stop</span>
+    </span>
 </template>
 
 <style scoped>

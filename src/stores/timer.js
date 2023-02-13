@@ -8,6 +8,7 @@ export const useTimerStore = defineStore('timer', {
             tagsStore: useTagsStore(),
             selectedMinutes: 0,
             active: false,
+            paused: false,
             minutes: 0,
             seconds: 0,
             interval: null
@@ -17,20 +18,7 @@ export const useTimerStore = defineStore('timer', {
         begin() {
             this.active = true;
             this.selectedMinutes = this.minutes;
-
-            const self = this;
-            this.interval = setInterval(() => {
-                if (self.seconds == 0) {
-                    if (self.minutes == 0) {
-                        self.stop();
-                    } else {
-                        self.minutes -= 1;
-                        self.seconds = 59;
-                    }
-                } else {
-                    self.seconds -= 1;
-                }
-            }, 1);
+            this.resume();
         },
         stop() {
             clearInterval(this.interval);
@@ -50,6 +38,26 @@ export const useTimerStore = defineStore('timer', {
             this.minutes = this.selectedMinutes;
             this.seconds = 0;
             this.active = false;
+        },
+        pause() {
+            clearInterval(this.interval);
+            this.paused = true;
+        },
+        resume() {
+            this.paused = false;
+            const self = this;
+            this.interval = setInterval(() => {
+                if (self.seconds == 0) {
+                    if (self.minutes == 0) {
+                        self.stop();
+                    } else {
+                        self.minutes -= 1;
+                        self.seconds = 59;
+                    }
+                } else {
+                    self.seconds -= 1;
+                }
+            }, 1000);
         }
     }
 });
