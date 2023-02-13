@@ -55,9 +55,10 @@ export default {
                 : this.timerStore.minutes;
         },
         seconds() {
-            return this.timerStore.seconds < 10
-                ? '0' + this.timerStore.seconds
-                : this.timerStore.seconds;
+            const fixedSeconds = Math.trunc(this.timerStore.seconds);
+            return fixedSeconds < 10
+                ? '0' + fixedSeconds
+                : fixedSeconds;
         },
         ...mapStores(useSettingsStore, useTimerStore)
     }
