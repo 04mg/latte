@@ -22,13 +22,14 @@ export const useTimerStore = defineStore('timer', {
         },
         stop() {
             clearInterval(this.interval);
-            
+
             if (this.tagsStore.tags.length) {
                 if (this.seconds <= 30) {
-                    this.tagsStore.tags[this.tagsStore.tagIndex].minutes += this.selectedMinutes - this.minutes;
+                    this.tagsStore.tags[this.tagsStore.tagIndex].minutes +=
+                        this.selectedMinutes - this.minutes;
                 }
             }
-            
+
             // Play audio if timer finished
             if (this.minutes == 0 && this.seconds == 0) {
                 const audio = new Audio(BeepAudio);
