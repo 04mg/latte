@@ -66,9 +66,10 @@ export const useTimerStore = defineStore('timer', {
 
             // Add time to selected tag
             if (this.tagsStore.tags.length) {
-                if (this.seconds <= 30) {
+                const elapsedMinutes = this.startMinutes - this.minutes;
+                if (elapsedMinutes || this.seconds <= 30) {
                     this.tagsStore.tags[this.tagsStore.tagIndex].minutes +=
-                        this.startMinutes - this.minutes;
+                        elapsedMinutes;
                 }
             }
 
