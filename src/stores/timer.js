@@ -50,26 +50,30 @@ export const useTimerStore = defineStore('timer', {
             clearInterval(this.interval);
         },
         stop() {
+            let elapsedMinutes = 0;
+
             // Set status variables
             this.active = false;
             this.paused = false;
 
             // Clear interval
             clearInterval(this.interval);
-
-            // Play audio if timer finished
+            
+            // Check if timer finished
             if (this.minutes == 0 && this.seconds < 1) {
+                // Play audio in case it did
                 const audio = new Audio(BeepAudio);
                 audio.play();
+
+                elapsedMinutes = this.startMinutes;
+            } else {
+                elapsedMinutes = this.startMinutes - this.minutes - 1;
             }
 
             // Add time to selected tag
             if (this.tagsStore.tags.length) {
-                const elapsedMinutes = this.startMinutes - this.minutes - 1;
-                if (elapsedMinutes) {
-                    this.tagsStore.tags[this.tagsStore.tagIndex].minutes +=
-                        elapsedMinutes;
-                }
+                this.tagsStore.tags[this.tagsStore.tagIndex].minutes += 
+                    elapsedMinutes;
             }
 
             // Reset seconds
