@@ -8,7 +8,7 @@ export const useSettingsStore = defineStore('settings', {
             backgroundColor: useStorage('background_color', '#00000094'),
             backgroundImage: useStorage(
                 'background_image',
-                'https://bit.ly/3RS0qIn'
+                'https://bit.ly/403takj'
             ),
             iconsColor: useStorage('icons_color', '1'),
             iconsPosition: useStorage('icons_position', 'center'),
