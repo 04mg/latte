@@ -16,6 +16,7 @@ export const useTagsStore = defineStore('tags', {
             });
         },
         removeTag(index) {
+            this.tagIndex = 0;
             this.tags.splice(index, 1);
         }
     }
