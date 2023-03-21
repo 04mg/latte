@@ -40,6 +40,8 @@ export const useTimerStore = defineStore('timer', {
                 if (remaining > 0) {
                     self.minutes = Math.floor(remaining / 60000);
                     self.seconds = remaining / 1000 % 60;
+                    // Update title
+                    document.title = `Latte • ${self.minutes}:${Math.trunc(self.seconds)}`;
                 } else {
                     self.stop();
                 }
@@ -58,6 +60,9 @@ export const useTimerStore = defineStore('timer', {
 
             // Clear interval
             clearInterval(this.interval);
+
+            // Reset title
+            document.title = 'Latte • Focus Productivity Timer';
             
             // Check if timer finished
             if (this.minutes == 0 && this.seconds < 1) {

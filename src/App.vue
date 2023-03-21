@@ -55,6 +55,7 @@ main {
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: multiply;
+    background-attachment: fixed;
 }
 
 .nav-icon {
