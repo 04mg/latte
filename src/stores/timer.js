@@ -41,7 +41,10 @@ export const useTimerStore = defineStore('timer', {
                     self.minutes = Math.floor(remaining / 60000);
                     self.seconds = remaining / 1000 % 60;
                     // Update title
-                    document.title = `Latte • ${self.minutes}:${Math.trunc(self.seconds)}`;
+                    let titleMinutes = self.minutes < 10 ? '0' + self.minutes : self.minutes;
+                    let titleSeconds = Math.trunc(self.seconds);
+                    titleSeconds = titleSeconds < 10 ? '0' + titleSeconds : titleSeconds;
+                    document.title = `Latte • ${titleMinutes}:${titleSeconds}`;
                 } else {
                     self.stop();
                 }
